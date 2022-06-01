@@ -19,7 +19,6 @@ using namespace std;
 
 int main()
 {   vector<int> A{ 4,2,2,6,4 };
-    Solution obj;
-    int totalCount= obj.solve(A,6);
+    int totalCount=solve(A,6);
     cout<<"The total number of subarrays having a given XOR k is "<<totalCount<<endl;
 }
