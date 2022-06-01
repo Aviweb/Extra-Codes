@@ -1,0 +1,123 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main()
+{
+    int alloc[5][3] = { { 0, 1, 0 },
+                     { 2, 0, 0 }, 
+                     { 3, 0, 2 }, 
+                     { 2, 1, 1 }, 
+                     { 0, 0, 2 } }; 
+ 
+  int max[5][3] = { { 7, 5, 3 }, 
+                   { 3, 2, 2 }, 
+                   { 9, 0, 2 }, 
+                   { 2, 2, 2 }, 
+                   { 4, 3, 3 } }; 
+ 
+  int avail[3] = { 3, 3, 2 };
+  int need[5][3];
+  for(int i=0;i<5;i++)
+  {
+      for(int j=0;j<3;j++)
+      {
+          need[i][j]=max[i][j]-alloc[i][j];
+      }
+  }
+  int c=0;
+  vector<int> vs(5,0);
+  vector<int> ans;
+   
+  for(int k=0;k<5;k++)
+  {
+  for(int i=0;i<5;i++)
+ {
+     if(c==5)
+     break;
+     if(need[i][0]<=avail[0] && need[i][1]<=avail[1] && need[i][2]<=avail[2] && vs[i]==0)
+     {vs[i]=1;
+     avail[0]=avail[0]+alloc[i][0];
+      avail[1]=avail[1]+alloc[i][1];
+       avail[2]=avail[2]+alloc[i][2];
+     ans.push_back(i);
+     c++;
+     }
+ }
+ if(c==5)
+ break;
+  }
+  int ch;
+  cout<<"1- NEED Matrix\n";
+  cout<<"2- Safe Sequence\n";
+  cout<<"3- Request Resource\n";
+  cout<<"4-Exit\n";
+  cin>>ch;
+  
+  
+  switch(ch)
+  {
+      case 1: for(int i=0;i<5;i++)
+              {
+                 for(int j=0;j<3;j++)
+                  {
+                    cout<<need[i][j]<<" ";
+                     }
+                     cout<<"\n";
+               } break;
+  
+   case 2: 
+  if(c==5)
+  {
+  cout<< "Safe state\n";
+  cout<<"Process Order:";
+  for(auto x:ans)
+  cout<<x<<" ";
+      
+  }
+  else
+  cout<<"UNSAFE State\n";  
+  break;
+  
+  case 3: int temp,t1,t2,t3;
+  
+  cout<<"Enter the Process which needs resources\n";
+  cin>>temp;
+  cout<< "Enter the additional resources needed \n";
+  cin>>t1>>t2>>t3;
+  if(avail[0]<t1 || avail[1]<t2 || avail[2]<t3 || max[temp][0]<t1 || max[temp][1]<t2 || max[temp][2]<t3)
+  cout<<"Request  cannot be granted\n";
+  else
+ {
+      int c=0;
+  vector<int> vs(5,0);
+  vector<int> ans;
+   avail[0]=avail[0]-t1;
+   avail[1]=avail[1]-t2;
+   avail[2]=avail[2]-t3;
+  for(int k=0;k<5;k++)
+  {
+  for(int i=0;i<5;i++)
+ {
+     if(c==5)
+     break;
+     if(need[i][0]<=avail[0] && need[i][1]<=avail[1] && need[i][2]<=avail[2] && vs[i]==0)
+     {vs[i]=1;
+     avail[0]=avail[0]+alloc[i][0];
+      avail[1]=avail[1]+alloc[i][1];
+       avail[2]=avail[2]+alloc[i][2];
+     ans.push_back(i);
+     c++;
+     }
+ }
+ if(c==5)
+ break;
+  }
+  if(c==5)
+  cout<<"Request Granted\n";
+  else
+  cout<<"Request cannot be granted\n";
+ }
+ break;
+ case 4: break;
+  return 0;
+}
+}
