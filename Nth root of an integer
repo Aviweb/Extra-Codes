@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+double value(double v,int p)
+{
+    double ans=1.000000;
+    for(int i=1;i<=p;i++)
+    {
+        ans=v*ans;
+    }
+return ans;
+    
+}
+int main()
+{
+    double n;
+    int p;
+    cout<<"ENTER THE NUMBER"<<endl;
+    cin>>n;
+    cout<<"ENTER Nth ROOT "<<endl;
+    cin>>p;
+    double precision=1e-8;
+    double left=1;
+    double right=n;
+    double mid;
+    double nthmultiple;
+    while(right-left>=precision)
+    {
+        mid=(left+right)/2.0;
+        nthmultiple=value(mid,p);
+        if(nthmultiple>n)
+        right=mid;
+        else
+        left=mid;
+    }
+    cout<<"ROOT IS "<<mid;
+}
